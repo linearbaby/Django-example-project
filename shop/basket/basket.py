@@ -22,5 +22,7 @@ class Basket():
 
         self.save()
 
+    update = add
+
     def save(self):
         self.session.modified = True

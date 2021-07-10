@@ -29,27 +29,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <select id="select">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
+                            <select id="select{{ product.id }}" style="width:50px;height:31px;">
+                                <option value="" selected disabled hidden>{{ item.qty }}</option>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
                             </select>
-                            <div class="col-6 text-end">
-                                <button type="button" id="update-button" value="{{ product.id }}"
-                                        class="btn btn-secondary btn-sm">update
-                                </button>
-                            </div>
-                            <div class="col-6 text-end">
-                                <button type="button" id="delete-button" value="{{ product.id }}"
-                                        class="btn btn-secondary btn-sm">delete
-                                </button>
-                            </div>
+                            <a type="button" id="update-button" data-index="{{ product.id }}"
+                               class="update-button text-decoration-none small ps-3">Update</a>
+                            <a type="button" id="delete-button" data-index="{{ product.id }}"
+                               class="delete-button text-decoration-none small">Delete</a>
                         </div>
 
                     {% endfor %}
-                <p id="total"></p>
-                <p id="subtotal"></p>
+                    <p id="total"></p>
+                    <p id="subtotal"></p>
                 </div>
             </div>
         </div>
