@@ -40,5 +40,9 @@ class Basket():
 
     update = add
 
+    def delete(self, product_id):
+        del self.basket[product_id]
+        self.save()
+
     def save(self):
         self.session.modified = True

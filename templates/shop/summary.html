@@ -16,7 +16,7 @@
                     {% for item in basket %}
                         {% with product=item.product %}
 
-                            <div class="col">
+                            <div class="col product-item" data-index="{{product.id}}">
                                 <div class="card shadow-sm">
                                     <img class="img-fluid" alt="Responsive image"
                                          src="{{ product.image.url }}">

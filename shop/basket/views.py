@@ -24,7 +24,11 @@ def summary(request):
 
 
 def delete(request):
-    return HttpResponse('delete')
+    basket = Basket(request)
+    if request.POST.get('action') == 'post':
+        product_id = request.POST.get('productid')
+        basket.delete(product_id)
+    return JsonResponse({'qty': len(basket), 'subtotal': basket.subtotal()})
 
 
 def update(request):
