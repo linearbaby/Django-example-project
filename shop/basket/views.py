@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from .basket import Basket
 from ..models import Products
 
-from decimal import Decimal
+from decimal import Decimal, getcontext
 
 
 def add(request):
@@ -19,10 +19,8 @@ def add(request):
 
 def summary(request):
     basket = Basket(request)
-    basket_product_id = basket.basket.keys()
-    basket_products = Products.objects.filter(id__in=basket_product_id)
     return render(request, 'shop/summary.html', {'subtotal': basket.subtotal(),
-                                                 'total': Decimal(basket.subtotal()) + Decimal(11.99)})
+                                                 'total': Decimal(basket.subtotal() + Decimal('11.99'))})
 
 
 def delete(request):
