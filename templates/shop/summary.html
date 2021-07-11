@@ -13,38 +13,41 @@
                 <div class="pb-3 h5">{{ category.name|title }}</div>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
 
-                    {% for product in products %}
+                    {% for item in basket %}
+                        {% with product=item.product %}
 
-                        <div class="col">
-                            <div class="card shadow-sm">
-                                <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img class="img-fluid" alt="Responsive image"
+                                         src="{{ product.image.url }}">
 
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        <a class="text-dark text-decoration-none"
-                                           href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">9min read</small>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <a class="text-dark text-decoration-none"
+                                               href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                        </p>
+                                        <p>{{ item.total }}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">9min read</small>
+                                        </div>
                                     </div>
                                 </div>
+                                <select id="select{{ product.id }}" style="width:50px;height:31px;">
+                                    <option value="" selected disabled hidden>{{ item.qty }}</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                </select>
+                                <a type="button" id="update-button" data-index="{{ product.id }}"
+                                   class="update-button text-decoration-none small ps-3">Update</a>
+                                <a type="button" id="delete-button" data-index="{{ product.id }}"
+                                   class="delete-button text-decoration-none small">Delete</a>
                             </div>
-                            <select id="select{{ product.id }}" style="width:50px;height:31px;">
-                                <option value="" selected disabled hidden>{{ item.qty }}</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
-                            </select>
-                            <a type="button" id="update-button" data-index="{{ product.id }}"
-                               class="update-button text-decoration-none small ps-3">Update</a>
-                            <a type="button" id="delete-button" data-index="{{ product.id }}"
-                               class="delete-button text-decoration-none small">Delete</a>
-                        </div>
-
+                        {% endwith %}
                     {% endfor %}
-                    <p id="total"></p>
-                    <p id="subtotal"></p>
+                    <p id="total">{{ total }}</p>
+                    <p id="subtotal">{{ subtotal }}</p>
                 </div>
             </div>
         </div>

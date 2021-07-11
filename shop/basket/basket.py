@@ -1,4 +1,5 @@
-import copy
+from decimal import Decimal
+from django.shortcuts import get_object_or_404
 
 from ..models import Products
 
@@ -12,6 +13,21 @@ class Basket():
 
     def __len__(self):
         return sum(item['qty'] for item in self.basket.values())
+
+    def __iter__(self):
+        basket = self.basket
+        for item in basket.keys():
+            product = get_object_or_404(Products, id=int(item))
+            basket[item]['product'] = product
+            basket[item]['total'] = int(basket[item]['qty']) * product.price
+            yield basket[item]
+
+    def subtotal(self):
+        subtotal = Decimal(0)
+        for product in self.basket.values():
+            subtotal += int(product['qty']) * Decimal(product['price'])
+        return subtotal
+        # return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
 
     def add(self, product, product_qty):
         product_id = str(product.id)

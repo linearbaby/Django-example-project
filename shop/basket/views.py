@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from .basket import Basket
 from ..models import Products
 
+from decimal import Decimal
+
 
 def add(request):
     basket = Basket(request)
@@ -12,13 +14,15 @@ def add(request):
         product_qty = int(request.POST.get('productqty'))
         basket.add(product, product_qty)
         basket_qty = len(basket)
-    return JsonResponse({'qty': basket_qty})
+    return JsonResponse({'qty': basket_qty, 'subtotal': basket.subtotal()})
 
 
 def summary(request):
-    basket_product_id = Basket(request).basket.keys()
+    basket = Basket(request)
+    basket_product_id = basket.basket.keys()
     basket_products = Products.objects.filter(id__in=basket_product_id)
-    return render(request, 'shop/summary.html', {'products': basket_products})
+    return render(request, 'shop/summary.html', {'subtotal': basket.subtotal(),
+                                                 'total': Decimal(basket.subtotal()) + Decimal(11.99)})
 
 
 def delete(request):
@@ -33,4 +37,4 @@ def update(request):
         product = get_object_or_404(Products, id=product_id)
         basket.update(product, product_qty)
         basket_qty = len(basket)
-    return JsonResponse({'qty': basket_qty})
+    return JsonResponse({'qty': basket_qty, 'subtotal': basket.subtotal()})
