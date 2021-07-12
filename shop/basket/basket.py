@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from ..models import Products
 
+
 class Basket():
     def __init__(self, request):
         self.session = request.session
