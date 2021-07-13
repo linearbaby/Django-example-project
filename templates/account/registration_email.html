@@ -1,0 +1,2 @@
+Hello {{ user.user_name }}! To finish your registration, click on the link:
+http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
