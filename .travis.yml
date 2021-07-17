@@ -1,5 +1,9 @@
 language: python
 python: "3.6"
+
+env:
+  - SECRET_KEY=MXlYxuiQRL3tCdNSeJ4IZNU2EbKhCm5MR55YAdeI6mYRfxvmjifS9UW1gpbuq7Tc
+
 install:
   - pip install -r requirements.txt
 
